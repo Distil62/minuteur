@@ -1,5 +1,3 @@
-#include <string_asukiaaa.h>
-
 #include <LiquidCrystal.h>
 
 #define TIME 100
@@ -75,10 +73,26 @@ void alarm() {
     delay(1000);
   }
 }
+
+String padStart(const String& s, unsigned int totalLength, char pad) {
+  if (totalLength <= s.length()) return s;
+  unsigned int paddingLength = totalLength - s.length();
+
+  String result;
+  result.reserve(totalLength);
+  while (paddingLength--) {
+    result += pad;
+  }
+  result += s;
+  return result;
+}
+
 void display_time() {
   lcd.clear();
-  lcd.print(string_asukiaaa::padStart(String(minutes), 2, '0') + "min:" + string_asukiaaa::padStart(String(secondes), 2, '0') + "sec");
+  lcd.print(padStart(String(minutes), 2, '0') + "min:" + padStart(String(secondes), 2, '0') + "sec");
 }
+
+
 
 void setup() {
   Serial.begin(9600);
